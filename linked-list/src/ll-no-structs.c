@@ -9,15 +9,13 @@
 #define SIZE(ll) *(int *)ll
 #define HEAD(ll) *(char **)((ll + sizeof(int)))
 
-#define SET_NULL(node) memset(&node, 0, sizeof(char *))
-
 char *makeLL() {
 	char *ll = malloc(sizeof(int) + sizeof(char *));
 	if (!ll)
 		return NULL;
 
 	SIZE(ll) = 0;
-	SET_NULL(HEAD(ll));
+	HEAD(ll) = NULL;
 
 	return ll;
 }
@@ -28,7 +26,7 @@ char *makeNode(int newData) {
 		return NULL;
 
 	DATA(newNode) = newData;
-	SET_NULL(NEXT(newNode));
+	NEXT(newNode) = NULL;
 
 	return newNode;
 }
@@ -68,7 +66,7 @@ bool removeLast(char *ll) {
 	// If the head is the only node, remove the head.
 	if (!NEXT(HEAD(ll))) {
 		free(HEAD(ll));
-		SET_NULL(HEAD(ll));
+		HEAD(ll) = NULL;
 		SIZE(ll) = 0;
 
 		return true;
@@ -82,7 +80,7 @@ bool removeLast(char *ll) {
 
 	// Remove last node.
 	free(NEXT(node));
-	SET_NULL(NEXT(node));
+	NEXT(node) = NULL;
 	SIZE(ll) -= 1;
 
 	return true;
@@ -112,7 +110,7 @@ void freeList(char *ll) {
 		node = tempNode;
 	}
 
-	SET_NULL(HEAD(ll));
+	HEAD(ll) = NULL;
 
 	free(ll);
 }
